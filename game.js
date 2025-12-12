@@ -4,10 +4,11 @@ const container = document.getElementById('puzzle-container');
 const sizeSelector = document.getElementById('puzzle-size');
 const GAP_SIZE_PX = 5; // Define the gap size in JS as well for calculations
 
+// Stats Variables
 let board = [];
 let emptySpace = { row: 3, col: 3 };
-
-// Stats Variables
+let currentTileSize = 0;
+let currentContainerWidth = 0;
 let moves = 0;
 let secondsRemaining = GAME_DURATION_SECONDS;
 let timerInterval = null;
@@ -64,6 +65,10 @@ function setCSSVariables(size) {
 
     // Calculate total container width precisely
     const totalWidth = (tileSize * size) + (GAP_SIZE_PX * (size - 1)) + (5 * 2); // Tiles + Gaps + Padding (5px on left/right)
+
+    // Store these in global variables
+    currentTileSize = tileSize;
+    currentContainerWidth = totalWidth;
 
     document.documentElement.style.setProperty('--puzzle-size', size);
     document.documentElement.style.setProperty('--tile-size', `${tileSize}px`);
@@ -137,14 +142,26 @@ function drawBoard() {
             const tileValue = board[i][j];
             const tile = document.createElement('div');
             tile.classList.add('puzzle-tile');
-            if (tileValue === 0) {
-                tile.classList.add('empty');
-                // The empty space coordinates are tracked separately in emptySpace object
-            } else {
-                tile.textContent = tileValue;
+            
+            // Calculate correct background position for the image slice
+            // The position is calculated based on where the *solved* tile should be.
+            // Solved row 'sr' and solved column 'sc' are derived from the tileValue.
+            if (tileValue !== 0) {
+                const solvedRow = Math.floor((tileValue - 1) / PUZZLE_SIZE);
+                const solvedCol = (tileValue - 1) % PUZZLE_SIZE;
+                
+                // Calculate pixel offset (remember gaps are handled by the grid layout, we just need the tile offsets)
+                const posX = -(solvedCol * currentTileSize + solvedCol * GAP_SIZE_PX);
+                const posY = -(solvedRow * currentTileSize + solvedRow * GAP_SIZE_PX);
+
+                tile.style.backgroundPosition = `${posX}px ${posY}px`;
+
+                tile.textContent = tileValue; // Keep numbers if you want them over the image
                 tile.dataset.row = i;
                 tile.dataset.col = j;
                 tile.addEventListener('click', () => moveTile(tile));
+            } else {
+                tile.classList.add('empty');
             }
             container.appendChild(tile);
         }
@@ -200,6 +217,7 @@ function isSolved() {
 // Theme management
 const themes = ['default-theme', 'christmas-theme', 'elf-theme', 'reindeer-theme'];
 let currentThemeIndex = 0;
+let areNumbersHidden = false;
 
 function toggleTheme() {
     // Cycle through themes: 0 -> 1 -> 2 -> 0 ...
@@ -213,6 +231,20 @@ function toggleTheme() {
     if (newTheme !== 'default-theme') {
         document.body.classList.add(newTheme);
     }
+}
+
+function toggleNumbers() {
+    areNumbersHidden = !areNumbersHidden;
+    const button = event.target; // Get the button that was clicked
+    
+    if (areNumbersHidden) {
+        document.body.classList.add('hide-numbers');
+        button.textContent = "Show Numbers";
+    } else {
+        document.body.classList.remove('hide-numbers');
+        button.textContent = "Hide Numbers";
+    }
+    // No need to call drawBoard() here because CSS handles the visibility change
 }
 
 // --- Global Functions attached to buttons/events in HTML ---
@@ -233,6 +265,21 @@ function resetGame() {
     // gameActive = false; // Game is not active until shuffled/started
     //timerDisplay.textContent = "Time: 4:00"; // Reset display
     startTimer();
+}
+
+function playAudio() {
+    const audio = document.getElementById('soundEffect');
+    // Stop the sound if it's already playing and rewind it to the start
+    if (audio.paused === false) {
+        audio.pause();
+        audio.currentTime = 0;
+    }
+    audio.play()
+         .catch(error => {
+             // Handle case where user hasn't interacted with the page yet (autoplay policies)
+             console.warn("Audio play failed, likely due to browser autoplay policies:", error);
+             // You could optionally alert the user or change the button text to prompt interaction
+         });
 }
 
 // Initialize on load

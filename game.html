@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <audio id="soundEffect" src="the-long-roar-of-a-wild-deer.mp3" preload="auto"></audio>
     <h1>The N-Puzzle Game</h1>
 
     <div class="controls-container">
@@ -20,6 +21,7 @@
         </select>
         <!-- Theme Toggle Button  -->
         <button onclick="toggleTheme()">Toggle Theme</button>
+        <button onclick="toggleNumbers()">Hide Numbers</button>
     </div>
 
     <div class="stats-container">
@@ -34,6 +36,7 @@
     <div class="button-container">
         <button onclick="newGame()">New Game</button>
         <button onclick="resetGame()">Reset to Solved</button>
+        <button onclick="playAudio()">Reindeer Call</button>
     </div>
 
     <script src="game.js"></script>
