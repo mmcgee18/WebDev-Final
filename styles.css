@@ -22,8 +22,8 @@ body.christmas-theme {
     --button-hover: #27ae60;
 }
 
-/* Reindeer Theme Variables (Green Focus) */
-body.reindeer-theme {
+/* Elf Theme Variables (Green Focus) */
+body.elf-theme {
     --bg-color: #fffaf0; /* Creamy background */
     --text-color: #27ae60; /* Green text */
     --tile-bg: #2ecc71; /* Bright Green tiles */
@@ -32,6 +32,18 @@ body.reindeer-theme {
     --stats-bg: #ffecb3; /* Lighter gold stats bg */
     --button-bg: #e74c3c;
     --button-hover: #c0392b;
+}
+
+/* Reindeer Theme Variables (Brown Focus) */
+body.reindeer-theme {
+    --bg-color: #e27134; /* Warm background */
+    --text-color: Black; /* Black text */
+    --tile-bg: #5b2d13; /* Brown tiles */
+    --tile-border: #e74c3c; /* Red border */
+    --container-border: #c0392b; /* Red container */
+    --stats-bg: #ffecb3; /* Lighter gold stats bg */
+    --button-bg: #e7a83c;
+    --button-hover: #c06e2b;
 }
 
 body {

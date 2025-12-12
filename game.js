@@ -198,7 +198,7 @@ function isSolved() {
 }
 
 // Theme management
-const themes = ['default-theme', 'christmas-theme', 'reindeer-theme'];
+const themes = ['default-theme', 'christmas-theme', 'elf-theme', 'reindeer-theme'];
 let currentThemeIndex = 0;
 
 function toggleTheme() {
@@ -230,8 +230,9 @@ function resetGame() {
     drawBoard(); // Draws the solved board
     moves = 0;
     movesDisplay.textContent = `Moves: ${moves}`;
-    gameActive = false; // Game is not active until shuffled/started
-    timerDisplay.textContent = "Time: 4:00"; // Reset display
+    // gameActive = false; // Game is not active until shuffled/started
+    //timerDisplay.textContent = "Time: 4:00"; // Reset display
+    startTimer();
 }
 
 // Initialize on load
