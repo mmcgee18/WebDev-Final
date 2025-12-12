@@ -8,14 +8,16 @@
     --button-bg: #e7e7e7;
     --button-hover: #d4d4d4;
     --gap-size: 5px;
+    --puzzle-image-url: url('reindeer2.webp');
 }
 
 /* Christmas Theme Variables */
 body.christmas-theme {
+    --puzzle-image-url: url('reindeer1.webp');
     --bg-color: #f0f8ff; /* Light background for contrast */
     --text-color: #c0392b; /* Red text */
-    --tile-bg: #e74c3c; /* Bright Red tiles */
-    --tile-border: #9b59b6; /* Purple border maybe? Or green: #2ecc71; */
+    --tile-bg: transparent; 
+    --tile-border: none; 
     --container-border: #27ae60; /* Green container */
     --stats-bg: #dcedc8; /* Lighter green stats bg */
     --button-bg: #2ecc71;
@@ -24,22 +26,24 @@ body.christmas-theme {
 
 /* Elf Theme Variables (Green Focus) */
 body.elf-theme {
+    --puzzle-image-url: url('elf1.jpg');
     --bg-color: #fffaf0; /* Creamy background */
-    --text-color: #27ae60; /* Green text */
-    --tile-bg: #2ecc71; /* Bright Green tiles */
-    --tile-border: #e74c3c; /* Red border */
+    --text-color: #268f52; /* Green text */
+    --tile-bg: transparent; 
+    --tile-border: none;
     --container-border: #c0392b; /* Red container */
     --stats-bg: #ffecb3; /* Lighter gold stats bg */
-    --button-bg: #e74c3c;
+    --button-bg: #f26353;
     --button-hover: #c0392b;
 }
 
 /* Reindeer Theme Variables (Brown Focus) */
 body.reindeer-theme {
-    --bg-color: #e27134; /* Warm background */
+    --puzzle-image-url: url('reindeer2.webp');
+    --bg-color: #663c25; /* Warm background */
     --text-color: Black; /* Black text */
-    --tile-bg: #5b2d13; /* Brown tiles */
-    --tile-border: #e74c3c; /* Red border */
+    --tile-bg: transparent; 
+    --tile-border: none;
     --container-border: #c0392b; /* Red container */
     --stats-bg: #ffecb3; /* Lighter gold stats bg */
     --button-bg: #e7a83c;
@@ -88,12 +92,13 @@ body {
     margin: 20px auto;
     border: 2px solid var(--container-border);
     padding: 5px;
+    position: relative;
 }
 
 .puzzle-tile {
     width: var(--tile-size);
     height: var(--tile-size);
-    background-color: var(--tile-bg);
+    /* background-color: var(--tile-bg); */
     border: 1px solid var(--tile-border);
     display: flex;
     justify-content: center;
@@ -102,12 +107,26 @@ body {
     cursor: pointer;
     transition: transform 0.2s ease-in-out, background-color 0.3s, border-color 0.3s; 
     color: inherit; /* Inherit text color from body/theme */ 
+
+    /* Add image properties */
+    background-image: var(--puzzle-image-url);
+    background-size: var(--container-width) var(--container-width); /* Scale image to fill the container size */
+    background-repeat: no-repeat;
+    
+    text-align: center;
 }
 
 .puzzle-tile.empty {
     background-color: transparent;
     border: none;
     cursor: default;
+    background-image: none;
+    color: transparent;
+}
+
+body.hide-numbers .puzzle-tile {
+    color: transparent; /* Makes the number text invisible */
+    text-shadow: none; /* Ensures no text shadow remains */
 }
 
 .button-container {
