@@ -1,0 +1,151 @@
+/* Default Theme Variables */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --tile-bg: #eee;
+    --ntainer-border: #333;
+    --stats-bg: #f9f9f9;
+    --button-bg: #e7e7e7;
+    --button-hover: #d4d4d4;
+    --gap-size: 5px;
+    --puzzle-image-url: url('reindeer2.webp');
+}
+
+/* Christmas Theme Variables */
+body.christmas-theme {
+    --puzzle-image-url: url('reindeer1.webp');
+    --bg-color: #f0f8ff; /* Light background for contrast */
+    --text-color: #c0392b; /* Red text */
+    --tile-bg: transparent; 
+    --tile-border: none; 
+    --container-border: #27ae60; /* Green container */
+    --stats-bg: #dcedc8; /* Lighter green stats bg */
+    --button-bg: #2ecc71;
+    --button-hover: #27ae60;
+}
+
+/* Elf Theme Variables (Green Focus) */
+body.elf-theme {
+    --puzzle-image-url: url('elf1.jpg');
+    --bg-color: #fffaf0; /* Creamy background */
+    --text-color: #268f52; /* Green text */
+    --tile-bg: transparent; 
+    --tile-border: none;
+    --container-border: #c0392b; /* Red container */
+    --stats-bg: #ffecb3; /* Lighter gold stats bg */
+    --button-bg: #f26353;
+    --button-hover: #c0392b;
+}
+
+/* Reindeer Theme Variables (Brown Focus) */
+body.reindeer-theme {
+    --puzzle-image-url: url('reindeer2.webp');
+    --bg-color: #663c25; /* Warm background */
+    --text-color: Black; /* Black text */
+    --tile-bg: transparent; 
+    --tile-border: none;
+    --container-border: #c0392b; /* Red container */
+    --stats-bg: #ffecb3; /* Lighter gold stats bg */
+    --button-bg: #e7a83c;
+    --button-hover: #c06e2b;
+}
+
+body {
+    font-family: sans-serif;
+    text-align: center;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+    /* Set default gap size in CSS, JS will set this dynamically too */
+    --gap-size: 5px; 
+}
+
+.controls-container {
+    margin-bottom: 10px;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    /* The max-width for stats should match the container width exactly */
+    max-width: var(--container-width);
+    width: 90%; 
+    margin: 10px auto;
+    font-size: 1.2em;
+    padding: 10px;
+    border: 1px solid var(--tile-border);
+    background-color: var(--stats-bg);
+}
+
+#puzzle-container {
+    display: grid;
+    /* Use CSS variables for dynamic sizing */
+    grid-template-columns: repeat(var(--puzzle-size), var(--tile-size));
+    grid-template-rows: repeat(var(--puzzle-size), var(--tile-size));
+    gap: var(--gap-size);
+
+    /* Explicitly define the container width using calc() for alignment */
+    width: var(--container-width);
+    /* Set max-width to the same value to prevent layout shift */
+    max-width: var(--container-width);
+
+    margin: 20px auto;
+    border: 2px solid var(--container-border);
+    padding: 5px;
+    position: relative;
+}
+
+.puzzle-tile {
+    width: var(--tile-size);
+    height: var(--tile-size);
+    /* background-color: var(--tile-bg); */
+    border: 1px solid var(--tile-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2em;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, background-color 0.3s, border-color 0.3s; 
+    color: inherit; /* Inherit text color from body/theme */ 
+
+    /* Add image properties */
+    background-image: var(--puzzle-image-url);
+    background-size: var(--container-width) var(--container-width); /* Scale image to fill the container size */
+    background-repeat: no-repeat;
+    
+    text-align: center;
+}
+
+.puzzle-tile.empty {
+    background-color: transparent;
+    border: none;
+    cursor: default;
+    background-image: none;
+    color: transparent;
+}
+
+body.hide-numbers .puzzle-tile {
+    color: transparent; /* Makes the number text invisible */
+    text-shadow: none; /* Ensures no text shadow remains */
+}
+
+.button-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: var(--button-bg);
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: var(--button-hover);
+}
