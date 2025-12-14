@@ -14,7 +14,7 @@ function create_tables() {
 
     // Create game_history table
     // game_status: 0 = running, 1 = success, 2 = failure, 9 = abort
-    // game_level: 1 = 3x3, 2 = 4x4, 3 = 6x6, 4 = 8x8, 5 = 10x10
+    // game_level: 3 = 3x3, 4 = 4x4, 6 = 6x6, 8 = 8x8, 10 = 10x10
     $game_history_table = "CREATE TABLE IF NOT EXISTS game_history (
         gameid INT AUTO_INCREMENT PRIMARY KEY,
         userid INT,

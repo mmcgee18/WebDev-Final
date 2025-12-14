@@ -1,8 +1,11 @@
-let PUZZLE_SIZE = 4; // Default size
-const GAME_DURATION_SECONDS = 240; 
+//let PUZZLE_SIZE = 3; // set by sizeSelector
+// const GAME_DURATION_SECONDS = 15; // set by function
 const container = document.getElementById('puzzle-container');
 const sizeSelector = document.getElementById('puzzle-size');
 const GAP_SIZE_PX = 5; // Define the gap size in JS as well for calculations
+
+game_level = parseInt(sizeSelector.value); // set puzzle size as game_level
+GAME_DURATION_SECONDS = setGameTime(game_level);
 
 // Stats Variables
 let board = [];
@@ -14,10 +17,29 @@ let secondsRemaining = GAME_DURATION_SECONDS;
 let timerInterval = null;
 let gameActive = false; 
 
+const dbUserId = document.getElementById('user-info').dataset.userId;
 const movesDisplay = document.getElementById('moves-display');
 const timerDisplay = document.getElementById('timer-display');
 
+//console.log('Session ID:', dbUserId);  
+
 // --- Timer Functions ---
+function setGameTime(game_level) {
+    switch (game_level) {
+        case 3:
+            return 60;
+        case 4:
+            return 120;
+        case 6:
+            return 180;
+        case 8:
+            return 240;
+        case 10:
+            return 300;
+    default:
+        return 300;
+    }
+}
 
 function updateTimerDisplay() {
     const minutes = Math.floor(secondsRemaining / 60);
@@ -27,6 +49,8 @@ function updateTimerDisplay() {
 }
 
 function startTimer() {
+    // game_level = parseInt(sizeSelector.value); // set puzzle size as game_level
+    // GAME_DURATION_SECONDS=setGameTime(game_level);
     secondsRemaining = GAME_DURATION_SECONDS;
     updateTimerDisplay();
     if (timerInterval) clearInterval(timerInterval);
@@ -47,11 +71,49 @@ function stopTimer() {
 function gameOver(won) {
     gameActive = false;
     stopTimer();
+    duration = GAME_DURATION_SECONDS - secondsRemaining;
     if (won) {
-        alert(`You Won in ${moves} moves and ${GAME_DURATION_SECONDS - secondsRemaining} seconds! Starting a new game...`);
+        // update database
+        game_level = parseInt(sizeSelector.value); // set puzzle size as game_level
+        sendGameStats(moves, duration, dbUserId, 1, game_level);
+        alert(`You Won in ${moves} moves and ${duration} seconds! Starting a new game...`);
         newGame();
+
     } else {
+        // update database
+        game_level = parseInt(sizeSelector.value); // set puzzle size as game_level
+        sendGameStats(moves, duration, dbUserId, 2, game_level);
         alert("Game Over! Time has run out. Click 'New Game' or 'Reset to Solved'.");
+    }
+}
+
+async function sendGameStats(finalMoves, finalDuration, userid, game_status, game_level) {
+    const dataToSend = {
+            moves: finalMoves,
+            durationSeconds: finalDuration,
+            userid: userid,
+            game_status: game_status,
+            game_level: game_level
+        };
+
+    try {
+        const response = await fetch('updateGameHistory.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataToSend)
+        });
+        
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }   
+
+        const result = await response.text();
+        console.log('Response from PHP:', result); 
+
+    } catch (error) {
+        console.error('Error fetching data:', error);
     }
 }
 
@@ -75,7 +137,6 @@ function setCSSVariables(size) {
     document.documentElement.style.setProperty('--gap-size', `${GAP_SIZE_PX}px`);
     document.documentElement.style.setProperty('--container-width', `${totalWidth}px`);
 }
-
 
 // Function to initialize (create a solved board) and then shuffle
 function initializeBoard() {
@@ -211,7 +272,7 @@ function isSolved() {
             }
         }
     }
-    return true;
+    return true; // puzzle solved
 }
 
 // Theme management
