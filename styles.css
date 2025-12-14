@@ -14,12 +14,16 @@
 /* Christmas Theme Variables */
 body.christmas-theme {
     --puzzle-image-url: url('reindeer1.webp');
-    --bg-color: #f0f8ff; /* Light background for contrast */
-    --text-color: #c0392b; /* Red text */
-    --tile-bg: transparent; 
-    --tile-border: none; 
-    --container-border: #27ae60; /* Green container */
-    --stats-bg: #dcedc8; /* Lighter green stats bg */
+    --bg-color: #f0f8ff;
+    /* Light background for contrast */
+    --text-color: #c0392b;
+    /* Red text */
+    --tile-bg: transparent;
+    --tile-border: none;
+    --container-border: #27ae60;
+    /* Green container */
+    --stats-bg: #dcedc8;
+    /* Lighter green stats bg */
     --button-bg: #2ecc71;
     --button-hover: #27ae60;
 }
@@ -27,12 +31,16 @@ body.christmas-theme {
 /* Elf Theme Variables (Green Focus) */
 body.elf-theme {
     --puzzle-image-url: url('elf1.jpg');
-    --bg-color: #fffaf0; /* Creamy background */
-    --text-color: #268f52; /* Green text */
-    --tile-bg: transparent; 
+    --bg-color: #fffaf0;
+    /* Creamy background */
+    --text-color: #268f52;
+    /* Green text */
+    --tile-bg: transparent;
     --tile-border: none;
-    --container-border: #c0392b; /* Red container */
-    --stats-bg: #ffecb3; /* Lighter gold stats bg */
+    --container-border: #c0392b;
+    /* Red container */
+    --stats-bg: #ffecb3;
+    /* Lighter gold stats bg */
     --button-bg: #f26353;
     --button-hover: #c0392b;
 }
@@ -40,12 +48,16 @@ body.elf-theme {
 /* Reindeer Theme Variables (Brown Focus) */
 body.reindeer-theme {
     --puzzle-image-url: url('reindeer2.webp');
-    --bg-color: #663c25; /* Warm background */
-    --text-color: Black; /* Black text */
-    --tile-bg: transparent; 
+    --bg-color: #663c25;
+    /* Warm background */
+    --text-color: Black;
+    /* Black text */
+    --tile-bg: transparent;
     --tile-border: none;
-    --container-border: #c0392b; /* Red container */
-    --stats-bg: #ffecb3; /* Lighter gold stats bg */
+    --container-border: #c0392b;
+    /* Red container */
+    --stats-bg: #ffecb3;
+    /* Lighter gold stats bg */
     --button-bg: #e7a83c;
     --button-hover: #c06e2b;
 }
@@ -57,7 +69,7 @@ body {
     color: var(--text-color);
     transition: background-color 0.3s, color 0.3s;
     /* Set default gap size in CSS, JS will set this dynamically too */
-    --gap-size: 5px; 
+    --gap-size: 5px;
 }
 
 .controls-container {
@@ -69,12 +81,121 @@ body {
     justify-content: space-around;
     /* The max-width for stats should match the container width exactly */
     max-width: var(--container-width);
-    width: 90%; 
+    width: 90%;
     margin: 10px auto;
     font-size: 1.2em;
     padding: 10px;
     border: 1px solid var(--tile-border);
     background-color: var(--stats-bg);
+}
+
+/* Heat System Styles */
+.heat-container {
+    max-width: var(--container-width);
+    width: 90%;
+    margin: 15px auto;
+    padding: 10px;
+    background-color: var(--stats-bg);
+    border: 2px solid var(--container-border);
+    border-radius: 8px;
+}
+
+.heat-label {
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+.heat-bar-bg {
+    width: 100%;
+    height: 25px;
+    background-color: #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid #333;
+    position: relative;
+}
+
+.heat-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #4CAF50;
+    transition: width 0.3s ease, background-color 0.3s ease;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+}
+
+.heat-info {
+    font-size: 0.85em;
+    margin-top: 5px;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+/* Heat Bonus Notification */
+.heat-bonus-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #ff4444, #ff8800);
+    color: white;
+    padding: 20px 40px;
+    font-size: 2em;
+    font-weight: bold;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(255, 68, 68, 0.8);
+    z-index: 1000;
+    animation: heatBonusAnimation 2s ease-out;
+}
+
+@keyframes heatBonusAnimation {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+    }
+}
+
+.versus-results {
+    max-width: var(--container-width);
+    width: 90%;
+    margin: 20px auto;
+    padding: 15px;
+    border: 2px solid var(--container-border);
+    background-color: var(--stats-bg);
+    border-radius: 8px;
+}
+
+.versus-results h3 {
+    margin-top: 0;
+    color: var(--text-color);
+}
+
+.versus-results div {
+    margin: 8px 0;
+    font-size: 1.1em;
+}
+
+#winner-display {
+    margin-top: 15px;
+    font-size: 1.3em;
+    color: var(--text-color);
+}
+
+#player-display {
+    font-weight: bold;
+    color: var(--text-color);
 }
 
 #puzzle-container {
@@ -105,14 +226,16 @@ body {
     align-items: center;
     font-size: 2em;
     cursor: pointer;
-    transition: transform 0.2s ease-in-out, background-color 0.3s, border-color 0.3s; 
-    color: inherit; /* Inherit text color from body/theme */ 
+    transition: transform 0.2s ease-in-out, background-color 0.3s, border-color 0.3s;
+    color: inherit;
+    /* Inherit text color from body/theme */
 
     /* Add image properties */
     background-image: var(--puzzle-image-url);
-    background-size: var(--container-width) var(--container-width); /* Scale image to fill the container size */
+    background-size: var(--container-width) var(--container-width);
+    /* Scale image to fill the container size */
     background-repeat: no-repeat;
-    
+
     text-align: center;
 }
 
@@ -125,8 +248,10 @@ body {
 }
 
 body.hide-numbers .puzzle-tile {
-    color: transparent; /* Makes the number text invisible */
-    text-shadow: none; /* Ensures no text shadow remains */
+    color: transparent;
+    /* Makes the number text invisible */
+    text-shadow: none;
+    /* Ensures no text shadow remains */
 }
 
 .button-container {

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>N-Puzzle Game</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <audio id="soundEffect" src="the-long-roar-of-a-wild-deer.mp3" preload="auto"></audio>
     <h1>The N-Puzzle Game</h1>
@@ -19,6 +21,13 @@
             <option value="8">8x8</option>
             <option value="10">10x10</option>
         </select>
+        <!-- Game Mode Selector -->
+        <label for="game-mode">Mode:</label>
+        <select id="game-mode" onchange="changeGameMode()">
+            <option value="single" selected>Single Player</option>
+            <option value="versus">Versus Mode (PVP)</option>
+            <option value="blitz">Blitz Mode ⚡</option>
+        </select>
         <!-- Theme Toggle Button  -->
         <button onclick="toggleTheme()">Toggle Theme</button>
         <button onclick="toggleNumbers()">Hide Numbers</button>
@@ -27,12 +36,28 @@
     <div class="stats-container">
         <div id="timer-display">Time: 4:00</div>
         <div id="moves-display">Moves: 0</div>
+        <div id="player-display">Single Player Mode</div>
+    </div>
+
+    <div class="heat-container">
+        <div class="heat-label">🔥 Heat Streak: <span id="heat-count">0/3</span></div>
+        <div class="heat-bar-bg">
+            <div id="heat-bar" class="heat-bar"></div>
+        </div>
+        <div class="heat-info">Make 3 correct moves in 20s to gain 3s!</div>
+    </div>
+
+    <div id="versus-results" class="versus-results" style="display: none;">
+        <h3>Versus Mode Results</h3>
+        <div id="p1-result">Player 1: --</div>
+        <div id="p2-result">Player 2: --</div>
+        <div id="winner-display"></div>
     </div>
 
     <div id="puzzle-container">
         <!-- Puzzle tiles will be generated here by JavaScript -->
     </div>
-    
+
     <div class="button-container">
         <button onclick="newGame()">New Game</button>
         <button onclick="resetGame()">Reset to Solved</button>
@@ -41,4 +66,5 @@
 
     <script src="game.js"></script>
 </body>
+
 </html>
