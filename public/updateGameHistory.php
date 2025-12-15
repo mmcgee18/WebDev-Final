@@ -55,7 +55,9 @@ if ($result->num_rows > 0) {
         //increment total games
         $total_games = $row["total_games"] + 1;
         //update total wins if this was a win
-        if ($games_status == 1) {
+        echo json_encode(["message" => "Before win check!"]);
+        if ($game_status == 1) {
+            echo json_encode(["message" => "This is a win!"]);
             $total_wins = $row["total_wins"] + 1;
             //new fewest moves record?
             if ($row["fewest_moves"] > $moves) {

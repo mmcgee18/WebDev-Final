@@ -49,8 +49,8 @@ function updateTimerDisplay() {
 }
 
 function startTimer() {
-    // game_level = parseInt(sizeSelector.value); // set puzzle size as game_level
-    // GAME_DURATION_SECONDS=setGameTime(game_level);
+    game_level = parseInt(sizeSelector.value); // set puzzle size as game_level
+    GAME_DURATION_SECONDS=setGameTime(game_level);
     secondsRemaining = GAME_DURATION_SECONDS;
     updateTimerDisplay();
     if (timerInterval) clearInterval(timerInterval);
@@ -142,6 +142,9 @@ function setCSSVariables(size) {
 function initializeBoard() {
     PUZZLE_SIZE = parseInt(sizeSelector.value);
     setCSSVariables(PUZZLE_SIZE);
+
+    GAME_DURATION_SECONDS=setGameTime(PUZZLE_SIZE);
+    secondsRemaining = GAME_DURATION_SECONDS; 
 
     createSolvedBoard(); 
     shuffleBoard();      

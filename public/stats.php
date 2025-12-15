@@ -57,7 +57,7 @@ $conn->close();
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             padding: 20px;
-            background-color: #f0f8ff; /* Light blue/snow background */
+            background-color: linear-gradient(135deg, red, green);
             color: #006400; /* Dark green for text */
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="www.w3.org" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%23ffffff"/></svg>'); /* Subtle snow effect */
         }
