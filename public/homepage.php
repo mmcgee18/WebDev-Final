@@ -45,7 +45,7 @@ require_once '../includes/database_functions.php';
         }
 
         .title > h1 {
-            font-size: 5rem;
+            font-size: 4.5rem;
             color: white;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
             margin: 0;
@@ -53,7 +53,7 @@ require_once '../includes/database_functions.php';
         }
 
         .title > img {
-            height: 250px;
+            height: 200px;
             width: auto;
             margin-top: 20px;
         }
@@ -223,7 +223,7 @@ require_once '../includes/database_functions.php';
             <button class="play-btn" onclick="document.location='game.php'"><h1>PLAY</h1></button>
             <button class="stats-btn" onclick="document.location='stats.php'"><h1>STATISTICS</h1></button>
             <button class="info-btn"><h1>INFO</h1></button>
-            <button class="logout-btn" onclick="document.location='logout.php'"><h1>EXIT</h1></button>
+            <button class="logout-btn" onclick="document.location='logout.php'"><h1>SIGN OUT</h1></button>
 
             <div class="info left">
                 <h2>Project Title: <span style="color: green;">N-Puzzle</span></h2>
@@ -240,8 +240,7 @@ require_once '../includes/database_functions.php';
                 </ul>                
             </div>
             <div class="info right">
-                <h1><?php echo htmlspecialchars($_SESSION['username']); ?></h1>
-                <h1><?php echo htmlspecialchars($_SESSION['user_id']); ?></h1>
+                <h1><?php echo htmlspecialchars($_SESSION['user_id']); ?>: <?php echo htmlspecialchars($_SESSION['username']); ?></h1>
                 <h2>Rules</h2>
                 <ol>
                     <li>See how to play below.</li>

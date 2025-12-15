@@ -33,6 +33,8 @@ $userId = $_SESSION['user_id'];
         <!-- Theme Toggle Button  -->
         <button onclick="toggleTheme()">Toggle Theme</button>
         <button onclick="toggleNumbers()">Hide Numbers</button>
+        <button onclick="playAudio()">Reindeer Call</button>
+
     </div>
 
     <div class="stats-container">
@@ -48,7 +50,7 @@ $userId = $_SESSION['user_id'];
     <div class="button-container">
         <button onclick="newGame()">New Game</button>
         <button onclick="resetGame()">Reset to Solved</button>
-        <button onclick="playAudio()">Reindeer Call</button>
+        <button onclick="document.location='homepage.php'">Exit Game</button>
     </div>
 
     <script type="text/javascript" src="game.js"></script>

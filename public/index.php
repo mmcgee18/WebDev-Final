@@ -41,7 +41,7 @@ if (isset($_SESSION['user_id'])) {
             <p>Don't have an account? <a href="register.php">Register here</a></p>
         </div>
         <div class="demo-info">
-            <p><strong>Demo Credentials:</strong> user / exampl3</p>
+            <p><strong>Demo Credentials:</strong> test / test123</p>
         </div>
     </div>
 </body>
